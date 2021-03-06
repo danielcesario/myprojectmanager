@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  mpm-postgres:
+    image: postgres
+    container_name: mpm-postgres
+    environment:
+      POSTGRES_PASSWORD: "admin"
+      POSTGRES_USER: "admin"
+      POSTGRES_DB: "mpm"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgre-data:/var/lib/postgresql/data
+    networks:
+      - mpm-network
+
+  mpm-pgadmin:
+    image: dpage/pgadmin4
+    container_name: mpm-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@mpm.com"
+      PGADMIN_DEFAULT_PASSWORD: "123456"
+    ports:
+      - "80:80"
+    depends_on:
+      - mpm-postgres
+    networks:
+      - mpm-network
+
+networks:
+  mpm-network:
+    driver: bridge
