@@ -7,9 +7,9 @@ services:
     environment:
       POSTGRES_PASSWORD: "admin"
       POSTGRES_USER: "admin"
-      POSTGRES_DB: "mpm"
+      POSTGRES_MULTIPLE_DATABASES: mpm,sonar
     ports:
-      - "5432:5432"
+      - 5432:5432
     volumes:
       - ./postgre-data:/var/lib/postgresql/data
     networks:
@@ -22,9 +22,22 @@ services:
       PGADMIN_DEFAULT_EMAIL: "admin@mpm.com"
       PGADMIN_DEFAULT_PASSWORD: "123456"
     ports:
-      - "80:80"
+      - 80:80
     depends_on:
       - mpm-postgres
+    networks:
+      - mpm-network
+
+  sonar:
+    image: sonarqube:latest
+    container_name: mpm-sonar
+    ports:
+      - 9000:9000
+    volumes:
+      - ./sonar/conf:/opt/sonarqube/conf
+      - ./sonar/data:/opt/sonarqube/data
+      - ./sonar/logs:/opt/sonarqube/logs
+      - ./sonar/extensions:/opt/sonarqube/extensions
     networks:
       - mpm-network
 

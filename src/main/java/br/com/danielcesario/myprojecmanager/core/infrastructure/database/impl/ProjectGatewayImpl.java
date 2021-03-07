@@ -3,6 +3,7 @@ package br.com.danielcesario.myprojecmanager.core.infrastructure.database.impl;
 import br.com.danielcesario.myprojecmanager.core.business.domain.Project;
 import br.com.danielcesario.myprojecmanager.core.infrastructure.database.repository.ProjectRepository;
 import br.com.danielcesario.myprojecmanager.core.infrastructure.gateway.ProjectGateway;
+import br.com.danielcesario.myprojecmanager.core.utilities.exception.GatewayException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class ProjectGatewayImpl implements ProjectGateway {
             return fromModelToDomain(projectRepository.save(fromDomainToModel(project)));
         } catch (final Exception ex) {
             log.error("Error on save project {}", project.getName(), ex);
-            throw new RuntimeException("Error on save project");
+            throw new GatewayException("Error on save project");
         }
     }
 

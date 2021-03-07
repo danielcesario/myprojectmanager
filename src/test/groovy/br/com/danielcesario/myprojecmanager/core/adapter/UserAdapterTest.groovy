@@ -12,8 +12,8 @@ class UserAdapterTest extends Specification {
         when: "I try to create an instance of UserAdapter"
         UserAdapter adapter = new UserAdapter();
 
-        then: "Must be thrown an IllegalArgumentException"
-        thrown(IllegalArgumentException)
+        then: "Must be thrown an IllegalStateException"
+        thrown(IllegalStateException)
     }
 
     def "Should convert UserModel to User"() {

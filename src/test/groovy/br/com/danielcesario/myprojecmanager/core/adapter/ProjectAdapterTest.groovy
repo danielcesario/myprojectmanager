@@ -19,8 +19,8 @@ class ProjectAdapterTest extends Specification {
         when: "I try to create an instance of ProjectAdapter"
         ProjectAdapter adapter = new ProjectAdapter();
 
-        then: "Must be thrown an IllegalArgumentException"
-        thrown(IllegalArgumentException)
+        then: "Must be thrown an IllegalStateException"
+        thrown(IllegalStateException)
     }
 
     def "Should convert Project to ProjectModel"() {

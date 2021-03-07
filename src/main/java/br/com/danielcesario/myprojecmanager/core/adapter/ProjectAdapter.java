@@ -8,8 +8,8 @@ import br.com.danielcesario.myprojecmanager.core.presenter.rest.viewmodel.projec
 
 public class ProjectAdapter {
 
-    public ProjectAdapter() {
-        throw new IllegalArgumentException("Utility class");
+    private ProjectAdapter() {
+        throw new IllegalStateException("Utility class");
     }
 
     public static ProjectModel fromDomainToModel(final Project source) {

@@ -1,5 +1,6 @@
 package br.com.danielcesario.myprojecmanager.core.business.usecase.user
 
+import br.com.danielcesario.myprojecmanager.core.utilities.exception.BusinessException
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -10,12 +11,12 @@ class ValidatePasswordTest extends Specification {
     @Unroll
     def "Validate password when #scenario"() {
         given: "An exception to catch errors"
-        Exception exception
+        BusinessException exception
 
         when: "I validate the password"
         try {
             validatePassword.execute(password, confirmPassword)
-        } catch (Exception ex) {
+        } catch (BusinessException ex) {
             exception = ex
         }
 

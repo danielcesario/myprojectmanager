@@ -4,6 +4,7 @@ import br.com.danielcesario.myprojecmanager.core.business.domain.Project
 import br.com.danielcesario.myprojecmanager.core.fixtures.ProjectFixture
 import br.com.danielcesario.myprojecmanager.core.infrastructure.database.model.ProjectModel
 import br.com.danielcesario.myprojecmanager.core.infrastructure.database.repository.ProjectRepository
+import br.com.danielcesario.myprojecmanager.core.utilities.exception.GatewayException
 import br.com.six2six.fixturefactory.Fixture
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader
 import spock.lang.Specification
@@ -38,7 +39,7 @@ class ProjectGatewayImplTest extends Specification {
             assert param.owner.email == project.owner.email
 
             if (hasError) {
-                throw new Exception()
+                throw new GatewayException("message")
             }
             return Fixture.from(ProjectModel).gimme(ProjectFixture.SAVED_PROJECT_MODEL)
         }
@@ -54,6 +55,7 @@ class ProjectGatewayImplTest extends Specification {
         then: "The result must be valid"
         if (hasError) {
             assert exception != null
+            assert exception instanceof GatewayException
         } else {
             result instanceof Project
             result.id == 1L

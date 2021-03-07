@@ -1,9 +1,16 @@
+buildscript {
+    dependencies {
+        classpath("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:3.1.1")
+    }
+}
+
 plugins {
     id 'groovy'
     id 'org.springframework.boot' version '2.4.3'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
     id 'jacoco'
+    id 'org.sonarqube' version '3.1.1'
 }
 
 group = 'br.com.danielcesario.myprojecmanager'
@@ -44,6 +51,7 @@ dependencies {
     testImplementation 'org.spockframework:spock-spring:1.3-groovy-2.5'
     implementation 'org.codehaus.groovy:groovy-all:2.5.14'
     testImplementation 'com.athaydes:spock-reports:1.8.0', { transitive = false }
+
 }
 
 test {
@@ -72,6 +80,18 @@ check {
 
 jacoco {
     toolVersion = "0.8.6"
+}
+
+sonarqube {
+    properties {
+        property "sonar.login", "575fcbab174a05f74f7f7fc228ffadecced69a9e"
+        property "sonar.projectName", "My Project Manager"
+        property "sonar.projectKey", "org.sonarqube:java-gradle-simple"
+        property "sonar.jacoco.reportPath", "${buildDir}/jacoco/test.exec"
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.verbose", "true"
+        property "sonar.tests", "src/test/groovy"
+    }
 }
 
 jacocoTestReport {

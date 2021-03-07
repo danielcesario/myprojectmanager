@@ -7,8 +7,8 @@ import br.com.danielcesario.myprojecmanager.core.presenter.rest.viewmodel.user.U
 
 public class UserAdapter {
 
-    public UserAdapter() {
-        throw new IllegalArgumentException("Utility class");
+    private UserAdapter() {
+        throw new IllegalStateException("Utility class");
     }
 
     public static UserModel fromDomainToModel(final User source) {
