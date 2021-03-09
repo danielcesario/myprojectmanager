@@ -84,24 +84,21 @@ jacoco {
 
 sonarqube {
     properties {
-        property "sonar.login", "575fcbab174a05f74f7f7fc228ffadecced69a9e"
+        property "sonar.login", "c8ecb67964a0ef96b764050b1bb90eaa6c101d2b"
         property "sonar.projectName", "My Project Manager"
         property "sonar.projectKey", "org.sonarqube:java-gradle-simple"
-        property "sonar.jacoco.reportPath", "${buildDir}/jacoco/test.exec"
+        property "sonar.groovy.jacoco.reportPath", "${buildDir}/jacoco/test.exec"
         property "sonar.host.url", "http://localhost:9000"
         property "sonar.verbose", "true"
         property "sonar.tests", "src/test/groovy"
+        property "sonar.core.coveragePlugin", "jacoco"
     }
 }
 
 jacocoTestReport {
     dependsOn test
-    afterEvaluate {
-        classDirectories.from(files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: [
-                    'br/com/danielcesario/myprojecmanager/core/MyProjectManagerApplication'
-            ])
-        }))
+    reports {
+        xml.enabled true
     }
 }
 
