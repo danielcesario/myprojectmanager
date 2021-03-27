@@ -1,37 +1,57 @@
-## Welcome to GitHub Pages
+# Welcome to MyProjectManager
 
-You can use the [editor on GitHub](https://github.com/danielcesario/myprojectmanager/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Hi, my name is Daniel Cesario, and I made this simple project to practice same concepts and tools related to code
+quality and tests.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+I wanted to create a project with 100% test coverage and also able to validate this coverage ratio. On this project I
+have used:
 
-### Markdown
+- **Spock Framework** with Groovy to Unit Tests.
+- **Jacoco**'s Gradle plugin to provide reports about tests coverage.
+- **Sonar** to analyse if the best practices have been following.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+# Project
 
-```markdown
-Syntax highlighted code block
+## What you have to install?
 
-# Header 1
-## Header 2
-### Header 3
+- Docker
+- Docker Compose
 
-- Bulleted
-- List
+## What you have to do to run the project?
 
-1. Numbered
-2. List
+Before run the application, you need to execute the docker-compose's script with this follow command to create the
+container for: PostgreSQL, and PgAdmin, and Sonar:
 
-**Bold** and _Italic_ and `Code` text
+    docker-compose up -d
 
-[Link](url) and ![Image](src)
-```
+After that you need to execute this follow gradle command to start the application:
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+    ./gradlew bootRun
 
-### Jekyll Themes
+## Jacoco's Coverage Report
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/danielcesario/myprojectmanager/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+The build command generate the coverage report in HTML on folder:
+**build/reports/jacoco/test/html/idnex.html**
 
-### Support or Contact
+But, you can also generate the report using the task **jacocoTestReport** of Gradle with command:
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+    ./gradlew jacocoTestReport
+
+## Sonar
+
+Firstly, you need to create a token to the application can connect on Sonar server, access the Sonar by following url:
+
+    http://localhost:9000
+
+Then, do the login with following credentials:
+
+    user: admin
+    #password: admin
+
+Probably you have to change the default password.
+
+On the Sonar panel, click on your user icon, after that click on **"My Account"**. Choose the **"Security"** tab,
+finally, generate a token to use in the application, not forget to copy the value to paste on the **build.gradle** file,
+in the task **sonarqube** at the property **sonar.login**. Now you can run the Sonar Task with following command:
+
+    ./gradlew sonarqube
